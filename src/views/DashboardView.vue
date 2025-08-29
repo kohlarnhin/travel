@@ -1,18 +1,21 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 py-8">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
       <div class="text-center py-20">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-full mb-6">
-          <ChartBarIcon class="h-8 w-8 text-primary-600 dark:text-primary-400" />
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-orange-100 rounded-full mb-6">
+          <ChartBarIcon class="h-10 w-10 text-orange-500" />
         </div>
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-          仪表板页面
+        <h2 class="text-xl font-light text-gray-900 mb-2">
+          个人仪表板
         </h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">
+        <p class="text-gray-600 mb-6">
           此功能正在开发中...
         </p>
-        <RouterLink to="/" class="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400">
-          <ArrowLeftIcon class="h-4 w-4 mr-1" />
+        <RouterLink 
+          to="/" 
+          class="inline-flex items-center px-6 py-3 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-medium shadow-lg"
+        >
+          <ArrowLeftIcon class="h-4 w-4 mr-2" />
           返回首页
         </RouterLink>
       </div>

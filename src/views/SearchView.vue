@@ -1,17 +1,17 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50 py-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
       <!-- Search Header -->
       <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        <h1 class="text-3xl font-light text-gray-900 mb-4">
           搜索结果
         </h1>
         
         <!-- Search Query Info -->
         <div v-if="searchQuery" class="mb-6">
-          <p class="text-gray-600 dark:text-gray-400">
-            搜索 "<span class="font-medium text-gray-900 dark:text-white">{{ searchQuery }}</span>" 
-            的结果，共找到 <span class="font-medium text-primary-600 dark:text-primary-400">{{ filteredResults.length }}</span> 条内容
+          <p class="text-gray-600">
+            搜索 "<span class="font-medium text-gray-900">{{ searchQuery }}</span>" 
+            的结果，共找到 <span class="font-medium text-orange-600">{{ filteredResults.length }}</span> 条内容
           </p>
         </div>
 
@@ -38,9 +38,9 @@
       </div>
 
       <!-- Filters -->
-      <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 mb-8">
+      <div class="bg-white/70 backdrop-blur-sm rounded-2xl border border-orange-200 p-6 mb-8 shadow-sm">
         <div class="flex flex-wrap items-center gap-4">
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">筛选条件：</span>
+          <span class="text-sm font-medium text-gray-700">筛选条件：</span>
           
           <!-- Category Filter -->
           <el-select
@@ -93,7 +93,7 @@
       <!-- Search Results -->
       <div v-else-if="filteredResults.length > 0" class="space-y-6">
         <!-- Results Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <CardItem
             v-for="item in paginatedResults"
             :key="item.id"
@@ -115,15 +115,15 @@
 
       <!-- Empty State -->
       <div v-else class="text-center py-20">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-6">
-          <MagnifyingGlassIcon class="h-8 w-8 text-gray-400" />
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-orange-100 rounded-full mb-6">
+          <MagnifyingGlassIcon class="h-10 w-10 text-orange-400" />
         </div>
         
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
+        <h3 class="text-xl font-light text-gray-900 mb-2">
           {{ searchQuery ? '未找到相关内容' : '开始搜索' }}
         </h3>
         
-        <p class="text-gray-600 dark:text-gray-400 mb-6">
+        <p class="text-gray-600 mb-6">
           {{ searchQuery 
             ? '试试调整搜索关键词或筛选条件' 
             : '输入关键词搜索你感兴趣的内容' 
@@ -141,20 +141,19 @@
       </div>
 
       <!-- Search Suggestions -->
-      <div v-if="!searchQuery && !isLoading" class="mt-12">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-6">
+      <div v-if="!searchQuery && !isLoading" class="mt-16">
+        <h3 class="text-xl font-light text-gray-900 mb-8 text-center">
           热门搜索
         </h3>
-        <div class="flex flex-wrap gap-3">
-          <el-tag
+        <div class="flex flex-wrap gap-4 justify-center">
+          <button
             v-for="suggestion in searchSuggestions"
             :key="suggestion"
-            size="large"
-            class="cursor-pointer hover:scale-105 transition-transform"
+            class="px-4 py-2 bg-white/70 backdrop-blur-sm border border-orange-200 rounded-xl hover:bg-orange-50 hover:border-orange-300 transition-all duration-200 text-sm font-medium text-gray-700 hover:text-orange-600"
             @click="searchBySuggestion(suggestion)"
           >
             {{ suggestion }}
-          </el-tag>
+          </button>
         </div>
       </div>
     </div>
