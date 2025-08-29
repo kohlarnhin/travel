@@ -26,6 +26,7 @@ body {
   font-family: 'Inter', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'sans-serif';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%);
 }
 
 /* 滚动条样式 */
@@ -35,40 +36,29 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #fef7ed;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: #f97316;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  background: #ea580c;
 }
 
-/* 暗色模式滚动条 */
-.dark ::-webkit-scrollbar-track {
-  background: #374151;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #6b7280;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
-}
+/* 移除暗色模式滚动条，保持明亮风格 */
 
 /* 选择文本颜色 */
 ::selection {
-  background-color: #0ea5e9;
+  background-color: #f97316;
   color: white;
 }
 
 /* 焦点样式 */
 :focus-visible {
-  outline: 2px solid #0ea5e9;
+  outline: 2px solid #f97316;
   outline-offset: 2px;
 }
 

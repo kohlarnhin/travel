@@ -1,138 +1,37 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-primary-50 via-white to-secondary-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="text-center max-w-4xl mx-auto">
-          <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-            发现精彩内容
-            <span class="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-              创造无限可能
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
+    <!-- Modern Hero Section -->
+    <section class="relative overflow-hidden">
+      <div class="container mx-auto px-6 lg:px-8 py-24">
+        <div class="text-center max-w-5xl mx-auto">
+          <!-- Modern Typography -->
+          <h1 class="text-5xl md:text-7xl font-light text-gray-900 mb-8 tracking-tight">
+            发现
+            <span class="block font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
+              美好
             </span>
+            瞬间
           </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-            探索创意设计、技术分享、生活记录等丰富内容，与创作者们一起构建精彩的数字世界
-          </p>
           
-          <!-- Search Bar -->
-          <div class="max-w-2xl mx-auto">
-            <el-input
-              v-model="searchQuery"
-              size="large"
-              placeholder="搜索你感兴趣的内容..."
-              clearable
-              @keyup.enter="handleSearch"
-            >
-              <template #prefix>
-                <MagnifyingGlassIcon class="h-5 w-5 text-gray-400" />
-              </template>
-              <template #append>
-                <el-button type="primary" @click="handleSearch">
-                  搜索
-                </el-button>
-              </template>
-            </el-input>
-          </div>
+          <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
+            探索精选内容，分享你的创意，与有趣的创作者建立连接
+          </p>
 
-          <!-- Quick Categories -->
-          <div class="flex flex-wrap justify-center gap-3 mt-8">
-            <el-tag
-              v-for="category in quickCategories"
-              :key="category.name"
-              :type="category.type"
-              size="large"
-              class="cursor-pointer hover:scale-105 transition-transform"
-              @click="filterByCategory(category.name)"
-            >
-              {{ category.name }}
-            </el-tag>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Filter & Sort Section -->
-    <section class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-16 z-40">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <!-- Filters -->
-          <div class="flex items-center space-x-4">
-            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">筛选：</span>
-            
-            <!-- Category Filter -->
-            <el-select
-              v-model="selectedCategory"
-              placeholder="选择分类"
-              clearable
-              size="small"
-              style="width: 120px"
-              @change="applyFilters"
-            >
-              <el-option
-                v-for="category in categories"
-                :key="category"
-                :label="category"
-                :value="category"
+          <!-- Modern Search -->
+          <div class="max-w-xl mx-auto mb-16">
+            <div class="relative">
+              <input
+                v-model="searchQuery"
+                type="text"
+                placeholder="今天什么激发了你的灵感？"
+                class="w-full px-6 py-4 text-lg bg-white/70 backdrop-blur-sm rounded-2xl border border-orange-200 focus:border-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-100 transition-all shadow-lg"
+                @keyup.enter="handleSearch"
               />
-            </el-select>
-
-            <!-- Tag Filter -->
-            <el-select
-              v-model="selectedTags"
-              placeholder="选择标签"
-              multiple
-              clearable
-              size="small"
-              style="width: 200px"
-              @change="applyFilters"
-            >
-              <el-option
-                v-for="tag in popularTags"
-                :key="tag"
-                :label="tag"
-                :value="tag"
-              />
-            </el-select>
-          </div>
-
-          <!-- Sort & View -->
-          <div class="flex items-center space-x-4">
-            <!-- Sort -->
-            <el-select
-              v-model="sortBy"
-              size="small"
-              style="width: 120px"
-              @change="applySort"
-            >
-              <el-option label="最新发布" value="newest" />
-              <el-option label="最受欢迎" value="popular" />
-              <el-option label="浏览最多" value="views" />
-              <el-option label="点赞最多" value="likes" />
-            </el-select>
-
-            <!-- View Toggle -->
-            <div class="flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
-              <button
-                :class="[
-                  'p-2 rounded-md transition-colors',
-                  viewMode === 'grid' 
-                    ? 'bg-white dark:bg-gray-600 text-primary-600 dark:text-primary-400 shadow-sm' 
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                ]"
-                @click="viewMode = 'grid'"
+              <button 
+                @click="handleSearch"
+                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors"
               >
-                <Squares2X2Icon class="h-5 w-5" />
-              </button>
-              <button
-                :class="[
-                  'p-2 rounded-md transition-colors',
-                  viewMode === 'list' 
-                    ? 'bg-white dark:bg-gray-600 text-primary-600 dark:text-primary-400 shadow-sm' 
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                ]"
-                @click="viewMode = 'list'"
-              >
-                <ListBulletIcon class="h-5 w-5" />
+                <MagnifyingGlassIcon class="h-5 w-5" />
               </button>
             </div>
           </div>
@@ -140,278 +39,317 @@
       </div>
     </section>
 
-    <!-- Content Section -->
-    <section class="py-12">
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Loading State -->
-        <div v-if="isLoading" class="flex justify-center py-20">
-          <el-loading class="!static" />
-        </div>
+    <!-- Modern Grid Section -->
+    <section class="container mx-auto px-6 lg:px-8 pb-24">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-light text-gray-900 mb-4">精选集合</h2>
+        <p class="text-gray-600 font-light">为你精心挑选的内容</p>
+      </div>
 
-        <!-- Cards Grid -->
+      <!-- Modern Masonry Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          v-else-if="filteredCards.length > 0"
-          :class="[
-            'grid gap-6 transition-all duration-300',
-            viewMode === 'grid'
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-              : 'grid-cols-1 max-w-4xl mx-auto'
-          ]"
+          v-for="(card, index) in displayedCards"
+          :key="card.id"
+          class="group cursor-pointer"
+          @click="handleCardClick(card)"
         >
-          <CardItem
-            v-for="card in paginatedCards"
-            :key="card.id"
-            :card="card"
-            :class="[
-              'transition-all duration-300',
-              viewMode === 'list' && 'flex flex-row h-48'
-            ]"
-          />
-        </div>
-
-        <!-- Empty State -->
-        <div v-else class="text-center py-20">
-          <MagnifyingGlassIcon class="h-16 w-16 text-gray-400 mx-auto mb-4" />
-          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">
-            未找到相关内容
-          </h3>
-          <p class="text-gray-600 dark:text-gray-400 mb-6">
-            试试调整筛选条件或搜索其他关键词
-          </p>
-          <el-button type="primary" @click="clearFilters">
-            清除筛选条件
-          </el-button>
-        </div>
-
-        <!-- Pagination -->
-        <div v-if="filteredCards.length > pageSize" class="flex justify-center mt-12">
-          <el-pagination
-            v-model:current-page="currentPage"
-            :page-size="pageSize"
-            :total="filteredCards.length"
-            layout="prev, pager, next, jumper, ->, total"
-            background
-          />
+          <div class="relative bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+            <!-- Modern Image -->
+            <div class="relative overflow-hidden">
+              <img
+                :src="card.image"
+                :alt="card.title"
+                class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            
+            <!-- Modern Content -->
+            <div class="p-6">
+              <h3 class="text-xl font-medium text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
+                {{ card.title }}
+              </h3>
+              <p class="text-gray-600 text-sm font-light leading-relaxed mb-4">
+                {{ card.description }}
+              </p>
+              
+              <!-- Modern Tags -->
+              <div class="flex flex-wrap gap-2 mb-4">
+                <span
+                  v-for="tag in card.tags.slice(0, 2)"
+                  :key="tag"
+                  class="px-3 py-1 bg-orange-100 text-orange-700 text-xs rounded-full font-medium"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+              
+              <!-- Modern Meta -->
+              <div class="flex items-center justify-between text-xs text-gray-500">
+                <span class="font-light">{{ formatDate(card.createdAt) }}</span>
+                <div class="flex items-center space-x-4">
+                  <span class="flex items-center space-x-1">
+                    <HeartIcon class="h-4 w-4" />
+                    <span>{{ card.likes }}</span>
+                  </span>
+                  <span class="flex items-center space-x-1">
+                    <EyeIcon class="h-4 w-4" />
+                    <span>{{ card.views }}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- Back to Top -->
-    <el-backtop :right="30" :bottom="80" />
+      <!-- Modern Load More -->
+      <div class="text-center mt-16" v-if="hasMoreContent">
+        <button
+          @click="loadMore"
+          :disabled="loading"
+          class="px-8 py-3 bg-white border border-orange-200 text-orange-600 rounded-2xl hover:bg-orange-50 hover:border-orange-300 transition-all font-medium disabled:opacity-50 shadow-sm hover:shadow-md"
+        >
+          <span v-if="!loading">加载更多</span>
+          <span v-else class="flex items-center space-x-2">
+            <div class="w-4 h-4 border-2 border-orange-600 border-t-transparent rounded-full animate-spin"></div>
+            <span>加载中...</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- No More Content -->
+      <div v-else-if="displayedCards.length > 6" class="text-center mt-16">
+        <p class="text-gray-500 font-light">已经到底啦 🎉</p>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
-// import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import {
-  MagnifyingGlassIcon,
-  Squares2X2Icon,
-  ListBulletIcon
-} from '@heroicons/vue/24/outline'
-import CardItem from '@/components/ui/CardItem.vue'
-import type { CardItem as CardItemType } from '@/types'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { MagnifyingGlassIcon, HeartIcon, EyeIcon } from '@heroicons/vue/24/outline'
+import type { CardItem } from '@/types'
+import { formatDate } from '@/utils'
 
 // Router
-// const router = useRouter()
+const router = useRouter()
 
-// Reactive State
+// Reactive state
 const searchQuery = ref('')
-const selectedCategory = ref('')
-const selectedTags = ref<string[]>([])
-const sortBy = ref('newest')
-const viewMode = ref<'grid' | 'list'>('grid')
+const loading = ref(false)
 const currentPage = ref(1)
-const pageSize = ref(12)
-const isLoading = ref(false)
+const itemsPerPage = 6
 
-// Sample Data
-const cards = ref<CardItemType[]>([])
+// Extended mock data with more Chinese content
+const allCards: CardItem[] = [
+  {
+    id: 1,
+    title: '极简建筑美学',
+    description: '探索现代建筑中简洁线条与功能空间的完美融合，感受极简主义的永恒魅力。',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '建筑',
+    tags: ['建筑', '极简', '设计'],
+    author: '陈建筑师',
+    createdAt: '2024-01-15',
+    likes: 234,
+    views: 1200
+  },
+  {
+    id: 2,
+    title: '数字艺术的复兴',
+    description: '数字工具如何重塑艺术景观，为传统艺术创造全新的可能性和表达方式。',
+    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '艺术',
+    tags: ['数字艺术', '科技', '创意'],
+    author: '玛雅·罗德里格斯',
+    createdAt: '2024-01-14',
+    likes: 189,
+    views: 856
+  },
+  {
+    id: 3,
+    title: '可持续生活方式',
+    description: '通过简单的步骤实现更可持续、更有意识的生活方式，与自然和谐共存。',
+    image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '生活',
+    tags: ['可持续', '生活方式', '环保'],
+    author: '乔丹·史密斯',
+    createdAt: '2024-01-13',
+    likes: 312,
+    views: 1456
+  },
+  {
+    id: 4,
+    title: '现代工作空间',
+    description: '在数字时代创造高效且富有灵感的工作环境，提升创造力和工作效率。',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '科技',
+    tags: ['工作空间', '效率', '设计'],
+    author: '山姆·威尔逊',
+    createdAt: '2024-01-12',
+    likes: 156,
+    views: 743
+  },
+  {
+    id: 5,
+    title: '自然摄影之美',
+    description: '捕捉自然风光中的原始美感和未被触及的瞬间，展现大自然的壮丽。',
+    image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '摄影',
+    tags: ['自然', '摄影', '风景'],
+    author: '艾玛·戴维斯',
+    createdAt: '2024-01-11',
+    likes: 421,
+    views: 2103
+  },
+  {
+    id: 6,
+    title: '烹饪创新艺术',
+    description: '现代烹饪技术与传统美食的创意融合，探索味觉的无限可能。',
+    image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '美食',
+    tags: ['烹饪', '创新', '美食'],
+    author: '玛丽亚大厨',
+    createdAt: '2024-01-10',
+    likes: 278,
+    views: 934
+  },
+  {
+    id: 7,
+    title: '城市夜景摄影',
+    description: '记录城市夜晚的霓虹光影，展现都市生活的另一面诗意与浪漫。',
+    image: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '摄影',
+    tags: ['城市', '夜景', '光影'],
+    author: '李摄影师',
+    createdAt: '2024-01-09',
+    likes: 567,
+    views: 2876
+  },
+  {
+    id: 8,
+    title: '手工艺复兴',
+    description: '在数字化时代重新发现手工艺的价值，感受匠人精神的传承与创新。',
+    image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '手工艺',
+    tags: ['手工', '传统', '工艺'],
+    author: '王师傅',
+    createdAt: '2024-01-08',
+    likes: 345,
+    views: 1567
+  },
+  {
+    id: 9,
+    title: '咖啡文化探索',
+    description: '从豆子到杯子，探索咖啡背后的文化故事和制作工艺的精妙之处。',
+    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '生活',
+    tags: ['咖啡', '文化', '品味'],
+    author: '张咖啡师',
+    createdAt: '2024-01-07',
+    likes: 423,
+    views: 1890
+  },
+  {
+    id: 10,
+    title: '现代室内设计',
+    description: '简约而不简单的室内设计理念，创造舒适且富有美感的生活空间。',
+    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '设计',
+    tags: ['室内', '设计', '现代'],
+    author: '刘设计师',
+    createdAt: '2024-01-06',
+    likes: 289,
+    views: 1234
+  },
+  {
+    id: 11,
+    title: '植物摄影艺术',
+    description: '通过镜头发现植物世界的微妙之美，记录生命的顽强与优雅。',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '摄影',
+    tags: ['植物', '自然', '微距'],
+    author: '林摄影师',
+    createdAt: '2024-01-05',
+    likes: 156,
+    views: 789
+  },
+  {
+    id: 12,
+    title: '数字艺术工作流',
+    description: '分享数字艺术创作的完整流程，从概念到完成作品的每一个步骤。',
+    image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
+    category: '艺术',
+    tags: ['数字艺术', '工作流', '教程'],
+    author: '陈艺术家',
+    createdAt: '2024-01-04',
+    likes: 678,
+    views: 3456
+  }
+]
 
-// Quick Categories
-const quickCategories = reactive([
-  { name: '技术', type: 'primary' },
-  { name: '设计', type: 'success' },
-  { name: '摄影', type: 'warning' },
-  { name: '旅行', type: 'info' },
-  { name: '生活', type: 'danger' }
-])
-
-// Filter Options
-const categories = computed(() => 
-  [...new Set(cards.value.map(card => card.category))]
-)
-
-const popularTags = computed(() => {
-  const allTags = cards.value.flatMap(card => card.tags)
-  const tagCount = allTags.reduce((acc, tag) => {
-    acc[tag] = (acc[tag] || 0) + 1
-    return acc
-  }, {} as Record<string, number>)
-  
-  return Object.entries(tagCount)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 20)
-    .map(([tag]) => tag)
+// Computed properties
+const displayedCards = computed(() => {
+  const endIndex = currentPage.value * itemsPerPage
+  return allCards.slice(0, endIndex)
 })
 
-// Computed
-const filteredCards = computed(() => {
-  let result = [...cards.value]
-
-  // Search filter
-  if (searchQuery.value) {
-    const query = searchQuery.value.toLowerCase()
-    result = result.filter(card =>
-      card.title.toLowerCase().includes(query) ||
-      card.description.toLowerCase().includes(query) ||
-      card.tags.some(tag => tag.toLowerCase().includes(query))
-    )
-  }
-
-  // Category filter
-  if (selectedCategory.value) {
-    result = result.filter(card => card.category === selectedCategory.value)
-  }
-
-  // Tags filter
-  if (selectedTags.value.length > 0) {
-    result = result.filter(card =>
-      selectedTags.value.some(tag => card.tags.includes(tag))
-    )
-  }
-
-  // Sort
-  switch (sortBy.value) {
-    case 'newest':
-      result.sort((a, b) => new Date(b.createTime).getTime() - new Date(a.createTime).getTime())
-      break
-    case 'popular':
-      result.sort((a, b) => (b.stats.likes + b.stats.views) - (a.stats.likes + a.stats.views))
-      break
-    case 'views':
-      result.sort((a, b) => b.stats.views - a.stats.views)
-      break
-    case 'likes':
-      result.sort((a, b) => b.stats.likes - a.stats.likes)
-      break
-  }
-
-  return result
-})
-
-const paginatedCards = computed(() => {
-  const start = (currentPage.value - 1) * pageSize.value
-  const end = start + pageSize.value
-  return filteredCards.value.slice(start, end)
+const hasMoreContent = computed(() => {
+  return displayedCards.value.length < allCards.length
 })
 
 // Methods
-const generateSampleData = (): CardItemType[] => {
-  const categories = ['技术', '设计', '摄影', '旅行', '生活']
-  const tags = ['Vue.js', 'React', 'JavaScript', 'CSS', 'UI/UX', '摄影', '旅行', '美食', '音乐', '读书', '电影', '运动']
-  const sampleCards: CardItemType[] = []
-
-  for (let i = 1; i <= 24; i++) {
-    const category = categories[Math.floor(Math.random() * categories.length)]
-    const cardTags = tags.sort(() => 0.5 - Math.random()).slice(0, Math.floor(Math.random() * 4) + 1)
-    
-    sampleCards.push({
-      id: `card-${i}`,
-      title: `精彩内容标题 ${i} - ${category}相关的优质内容分享`,
-      description: `这是一个关于${category}的精彩内容描述，包含了丰富的信息和有价值的见解。内容涵盖了多个方面的知识点，为读者提供深度的学习和思考材料。`,
-      image: `https://picsum.photos/600/400?random=${i}`,
-      category,
-      tags: cardTags,
-      createTime: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-      author: {
-        name: `创作者${i}`,
-        avatar: `https://i.pravatar.cc/150?img=${i}`
-      },
-      stats: {
-        views: Math.floor(Math.random() * 10000) + 100,
-        likes: Math.floor(Math.random() * 1000) + 10,
-        comments: Math.floor(Math.random() * 100) + 1
-      }
-    })
-  }
-
-  return sampleCards
-}
-
-const loadCards = async () => {
-  isLoading.value = true
-  
-  try {
-    // 模拟API调用延迟
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // 生成示例数据
-    cards.value = generateSampleData()
-  } catch (error) {
-    console.error('Failed to load cards:', error)
-    ElMessage.error('加载内容失败，请刷新页面重试')
-  } finally {
-    isLoading.value = false
-  }
-}
-
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
-    currentPage.value = 1
-    ElMessage.success(`搜索"${searchQuery.value}"相关内容`)
+    router.push({
+      name: 'Search',
+      query: { q: searchQuery.value }
+    })
   }
 }
 
-const filterByCategory = (category: string) => {
-  selectedCategory.value = category
-  currentPage.value = 1
-  applyFilters()
+const handleCardClick = (card: CardItem) => {
+  router.push({
+    name: 'CardDetail',
+    params: { id: card.id.toString() }
+  })
 }
 
-const applyFilters = () => {
-  currentPage.value = 1
-}
-
-const applySort = () => {
-  currentPage.value = 1
-}
-
-const clearFilters = () => {
-  searchQuery.value = ''
-  selectedCategory.value = ''
-  selectedTags.value = []
-  currentPage.value = 1
+const loadMore = async () => {
+  loading.value = true
+  // Simulate API call
+  await new Promise(resolve => setTimeout(resolve, 800))
+  currentPage.value += 1
+  loading.value = false
 }
 
 // Lifecycle
 onMounted(() => {
-  loadCards()
+  // Cards are loaded from computed property
 })
 </script>
 
 <style scoped>
-/* 自定义样式 */
-:deep(.el-pagination) {
-  @apply justify-center;
+/* Custom scrollbar for modern look */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-:deep(.el-select .el-input) {
-  @apply bg-white dark:bg-gray-700;
+::-webkit-scrollbar-track {
+  background: #fef7ed;
 }
 
-/* 英雄区域背景渐变 */
-.bg-gradient-to-br {
-  background-image: linear-gradient(
-    to bottom right,
-    var(--tw-gradient-stops)
-  );
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 3px;
 }
 
-/* 文本渐变 */
-.bg-clip-text {
-  -webkit-background-clip: text;
-  background-clip: text;
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
 }
 </style>

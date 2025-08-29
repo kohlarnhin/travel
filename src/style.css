@@ -4,27 +4,27 @@
 
 /* 自定义 CSS 变量 */
 :root {
-  /* 主色调 */
-  --color-primary: 14 165 233;
-  --color-secondary: 100 116 139;
+  /* 温暖明亮的主色调 */
+  --color-primary: 234 88 12;
+  --color-secondary: 237 137 54;
   
   /* 语义色彩 */
-  --color-success: 34 197 94;
+  --color-success: 16 185 129;
   --color-warning: 245 158 11;
   --color-error: 239 68 68;
-  --color-info: 14 165 233;
+  --color-info: 234 88 12;
   
-  /* 中性色 */
-  --color-gray-50: 249 250 251;
-  --color-gray-100: 243 244 246;
-  --color-gray-200: 229 231 235;
-  --color-gray-300: 209 213 219;
-  --color-gray-400: 156 163 175;
-  --color-gray-500: 107 114 128;
-  --color-gray-600: 75 85 99;
-  --color-gray-700: 55 65 81;
-  --color-gray-800: 31 41 55;
-  --color-gray-900: 17 24 39;
+  /* 明亮温暖的中性色 */
+  --color-gray-50: 254 252 243;
+  --color-gray-100: 254 247 224;
+  --color-gray-200: 254 235 200;
+  --color-gray-300: 253 211 141;
+  --color-gray-400: 251 191 36;
+  --color-gray-500: 217 119 6;
+  --color-gray-600: 180 83 9;
+  --color-gray-700: 146 64 14;
+  --color-gray-800: 120 53 15;
+  --color-gray-900: 69 26 3;
   
   /* 阴影 */
   --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
@@ -88,11 +88,11 @@
   
   /* 渐变背景 */
   .bg-gradient-primary {
-    background: linear-gradient(135deg, rgb(14 165 233) 0%, rgb(59 130 246) 100%);
+    background: linear-gradient(135deg, rgb(234 88 12) 0%, rgb(249 115 22) 100%);
   }
   
   .bg-gradient-secondary {
-    background: linear-gradient(135deg, rgb(100 116 139) 0%, rgb(148 163 184) 100%);
+    background: linear-gradient(135deg, rgb(237 137 54) 0%, rgb(251 146 60) 100%);
   }
   
   /* 动画 */
@@ -143,18 +143,18 @@
 
 /* Element Plus 组件样式覆盖 */
 .el-button--primary {
-  --el-button-bg-color: rgb(14 165 233);
-  --el-button-border-color: rgb(14 165 233);
-  --el-button-hover-bg-color: rgb(2 132 199);
-  --el-button-hover-border-color: rgb(2 132 199);
-  --el-button-active-bg-color: rgb(3 105 161);
-  --el-button-active-border-color: rgb(3 105 161);
+  --el-button-bg-color: rgb(234 88 12);
+  --el-button-border-color: rgb(234 88 12);
+  --el-button-hover-bg-color: rgb(249 115 22);
+  --el-button-hover-border-color: rgb(249 115 22);
+  --el-button-active-bg-color: rgb(194 65 12);
+  --el-button-active-border-color: rgb(194 65 12);
 }
 
 .el-input__wrapper {
-  --el-input-border-color: rgb(209 213 219);
-  --el-input-focus-border-color: rgb(14 165 233);
-  --el-input-hover-border-color: rgb(156 163 175);
+  --el-input-border-color: rgb(254 235 200);
+  --el-input-focus-border-color: rgb(234 88 12);
+  --el-input-hover-border-color: rgb(251 191 36);
 }
 
 .el-card {

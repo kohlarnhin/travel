@@ -39,7 +39,7 @@ const router = createRouter({
           name: 'Home',
           component: () => import('@/views/HomeView.vue'),
           meta: {
-            title: '首页 - FrontApp',
+            title: '首页 - 发现美好',
             description: '发现精彩内容，创造无限可能'
           }
         },
@@ -48,7 +48,7 @@ const router = createRouter({
           name: 'Explore',
           component: () => import('@/views/ExploreView.vue'),
           meta: {
-            title: '发现 - FrontApp',
+            title: '探索 - 发现美好',
             description: '探索更多精彩内容'
           }
         },
@@ -57,7 +57,7 @@ const router = createRouter({
           name: 'CardDetail',
           component: () => import('@/views/CardDetailView.vue'),
           meta: {
-            title: '内容详情 - FrontApp'
+            title: '内容详情 - 发现美好'
           }
         },
         {
