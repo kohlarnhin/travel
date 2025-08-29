@@ -50,7 +50,7 @@
           <!-- Theme Toggle -->
           <button 
             class="flex items-center justify-center h-10 w-10 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800 transition-colors"
-            @click="toggleTheme"
+            @click="() => toggleTheme()"
           >
             <SunIcon v-if="isDark" class="h-5 w-5" />
             <MoonIcon v-else class="h-5 w-5" />

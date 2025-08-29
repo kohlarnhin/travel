@@ -3,7 +3,7 @@ import { useUserStore } from '@/stores/user'
 import { ElMessage } from 'element-plus'
 
 // 路由守卫：检查认证状态
-const requireAuth = (to: any, from: any, next: any) => {
+const requireAuth = (to: any, _from: any, next: any) => {
   const userStore = useUserStore()
   if (userStore.isAuthenticated) {
     next()
@@ -17,7 +17,7 @@ const requireAuth = (to: any, from: any, next: any) => {
 }
 
 // 路由守卫：已登录用户不能访问认证页面
-const requireGuest = (to: any, from: any, next: any) => {
+const requireGuest = (_to: any, _from: any, next: any) => {
   const userStore = useUserStore()
   if (!userStore.isAuthenticated) {
     next()
@@ -27,7 +27,7 @@ const requireGuest = (to: any, from: any, next: any) => {
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory((import.meta as any).env.BASE_URL),
   routes: [
     // 主页面路由
     {
@@ -180,7 +180,7 @@ const router = createRouter({
   ],
   
   // 路由行为配置
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(to, _from, savedPosition) {
     // 如果有保存的位置（如浏览器前进/后退）
     if (savedPosition) {
       return savedPosition
@@ -203,7 +203,7 @@ const router = createRouter({
 })
 
 // 全局前置守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   // 设置页面标题
   if (to.meta.title) {
     document.title = to.meta.title as string
@@ -235,7 +235,7 @@ router.afterEach((to, from, failure) => {
 })
 
 // 全局解析守卫
-router.beforeResolve((to, from, next) => {
+router.beforeResolve((_to, _from, next) => {
   // 在导航被确认之前，所有组件内守卫和异步路由组件被解析之后调用
   next()
 })

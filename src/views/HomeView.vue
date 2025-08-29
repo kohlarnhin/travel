@@ -203,7 +203,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import {
   MagnifyingGlassIcon,
@@ -214,7 +214,7 @@ import CardItem from '@/components/ui/CardItem.vue'
 import type { CardItem as CardItemType } from '@/types'
 
 // Router
-const router = useRouter()
+// const router = useRouter()
 
 // Reactive State
 const searchQuery = ref('')

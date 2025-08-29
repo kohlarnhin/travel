@@ -204,10 +204,10 @@ const handleSocialLogin = (provider: string) => {
 }
 
 // Auto-fill demo account for convenience
-const fillDemoAccount = () => {
-  loginForm.username = 'admin'
-  loginForm.password = '123456'
-}
+// const fillDemoAccount = () => {
+//   loginForm.username = 'admin'
+//   loginForm.password = '123456'
+// }
 
 // 页面加载时自动填入演示账户（可选）
 // fillDemoAccount()

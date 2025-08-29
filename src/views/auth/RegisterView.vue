@@ -253,7 +253,7 @@ const passwordStrengthText = computed(() => {
 })
 
 // Custom Validators
-const validateUsername = (rule: any, value: string, callback: any) => {
+const validateUsername = (_rule: any, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请输入用户名'))
   } else if (value.length < 3 || value.length > 20) {
@@ -265,7 +265,7 @@ const validateUsername = (rule: any, value: string, callback: any) => {
   }
 }
 
-const validateEmailFormat = (rule: any, value: string, callback: any) => {
+const validateEmailFormat = (_rule: any, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请输入邮箱地址'))
   } else if (!validateEmail(value)) {
@@ -275,7 +275,7 @@ const validateEmailFormat = (rule: any, value: string, callback: any) => {
   }
 }
 
-const validatePasswordStrength = (rule: any, value: string, callback: any) => {
+const validatePasswordStrength = (_rule: any, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请输入密码'))
   } else {
@@ -288,7 +288,7 @@ const validatePasswordStrength = (rule: any, value: string, callback: any) => {
   }
 }
 
-const validateConfirmPassword = (rule: any, value: string, callback: any) => {
+const validateConfirmPassword = (_rule: any, value: string, callback: any) => {
   if (!value) {
     callback(new Error('请再次输入密码'))
   } else if (value !== registerForm.password) {
@@ -298,7 +298,7 @@ const validateConfirmPassword = (rule: any, value: string, callback: any) => {
   }
 }
 
-const validateAgreement = (rule: any, value: boolean, callback: any) => {
+const validateAgreement = (_rule: any, value: boolean, callback: any) => {
   if (!value) {
     callback(new Error('请同意用户协议和隐私政策'))
   } else {
