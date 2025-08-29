@@ -39,7 +39,7 @@
               <div class="flex items-center space-x-4 text-white/90">
                 <span class="font-light">{{ card.author }}</span>
                 <span>•</span>
-                <span class="font-light">{{ formatDate(card.createdAt) }}</span>
+                <span class="font-light">{{ formatDate(card.createTime) }}</span>
               </div>
             </div>
           </div>
@@ -113,11 +113,11 @@
               <div class="flex items-center space-x-6 text-gray-500">
                 <div class="flex items-center space-x-2">
                   <HeartIcon class="h-5 w-5" />
-                  <span>{{ card.likes }} 点赞</span>
+                  <span>{{ card.stats.likes }} 点赞</span>
                 </div>
                 <div class="flex items-center space-x-2">
                   <EyeIcon class="h-5 w-5" />
-                  <span>{{ card.views }} 浏览</span>
+                  <span>{{ card.stats.views }} 浏览</span>
                 </div>
                 <div class="flex items-center space-x-2">
                   <ShareIcon class="h-5 w-5" />
@@ -225,42 +225,59 @@ const isLiked = ref(false)
 // Mock data - same as in HomeView
 const mockCards: CardItem[] = [
   {
-    id: 1,
+    id: '1',
     title: '极简建筑美学',
     description: '探索现代建筑中简洁线条与功能空间的完美融合，感受极简主义的永恒魅力。',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '建筑',
     tags: ['建筑', '极简', '设计'],
-    author: '陈建筑师',
-    createdAt: '2024-01-15',
-    likes: 234,
-    views: 1200
+    author: {
+      name: '陈建筑师',
+      avatar: '/avatars/architect.jpg'
+    },
+    createTime: '2024-01-15',
+    stats: {
+      likes: 234,
+      views: 1200,
+      comments: 45
+    }
   },
   {
-    id: 2,
+    id: '2',
     title: '数字艺术的复兴',
     description: '数字工具如何重塑艺术景观，为传统艺术创造全新的可能性和表达方式。',
     image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '艺术',
     tags: ['数字艺术', '科技', '创意'],
-    author: '玛雅·罗德里格斯',
-    createdAt: '2024-01-14',
-    likes: 189,
-    views: 856
+    author: {
+      name: '玛雅·罗德里格斯',
+      avatar: '/avatars/artist.jpg'
+    },
+    createTime: '2024-01-14',
+    stats: {
+      likes: 189,
+      views: 856,
+      comments: 23
+    }
   },
   {
-    id: 3,
+    id: '3',
     title: '可持续生活方式',
     description: '通过简单的步骤实现更可持续、更有意识的生活方式，与自然和谐共存。',
     image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '生活',
     tags: ['可持续', '生活方式', '环保'],
-    author: '乔丹·史密斯',
-    createdAt: '2024-01-13',
-    likes: 312,
-    views: 1456
-  },
-  // ... 添加更多卡片数据
+    author: {
+      name: '乔丹·史密斯',
+      avatar: '/avatars/lifestyle.jpg'
+    },
+    createTime: '2024-01-13',
+    stats: {
+      likes: 312,
+      views: 1456,
+      comments: 67
+    }
+  }
 ]
 
 // Computed
@@ -273,7 +290,7 @@ const relatedCards = computed(() => {
 
 // Methods
 const loadCard = async () => {
-  const cardId = parseInt(route.params.id as string)
+  const cardId = route.params.id as string
   
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 500))
@@ -282,7 +299,7 @@ const loadCard = async () => {
   if (foundCard) {
     card.value = foundCard
     // Simulate view count increment
-    card.value.views += 1
+    card.value.stats.views += 1
   }
   
   loading.value = false
@@ -295,7 +312,7 @@ const goBack = () => {
 const toggleLike = () => {
   isLiked.value = !isLiked.value
   if (card.value) {
-    card.value.likes += isLiked.value ? 1 : -1
+    card.value.stats.likes += isLiked.value ? 1 : -1
   }
 }
 

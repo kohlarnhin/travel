@@ -174,7 +174,6 @@ import {
   UserIcon,
   Cog6ToothIcon,
   ArrowRightOnRectangleIcon,
-  ChevronDownIcon,
   Bars3Icon,
   XMarkIcon
 } from '@heroicons/vue/24/outline'

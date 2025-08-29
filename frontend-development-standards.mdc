@@ -1,436 +1,75 @@
-# 前端项目开发规范与依赖库配置
+---
+alwaysApply: true
+---
 
-> **配置类型**: Always规则
+# 🚀 前端项目开发规范与最佳实践
+
+> **配置类型**: Always规则  
 > **适用范围**: 所有前端项目  
-> **更新日期**: 2024年12月
-> **强制执行**: 是
+> **更新日期**: 2024年12月  
+> **强制执行**: 是  
+> **基于经验**: 实际项目开发问题总结  
 
-## 项目概述
+---
 
-本配置为前端项目提供统一的技术栈、依赖库和开发规范，确保项目的一致性、可维护性和开发效率。
+## 📋 核心技术栈
 
-## 核心技术栈
+### 必需依赖版本 (严格执行)
 
-### 主框架
-- **Vue.js**: `^3.4.0` (推荐最新稳定版)
-- **TypeScript**: `^5.3.0` (强烈推荐)
-
-### 构建工具
-- **Vite**: `^5.0.0` (主要构建工具)
-- **Node.js**: `>=18.0.0` (运行环境要求)
-
-## 核心依赖库配置
-
-### 1. CSS框架与样式系统
-
-#### TailwindCSS (必需)
-```json
-{
-  "tailwindcss": "^3.4.0",
-  "autoprefixer": "^10.4.0",
-  "postcss": "^8.4.0"
-}
-```
-
-**安装命令**:
-```bash
-npm install tailwindcss autoprefixer postcss
-```
-
-**配置要求**:
-- 使用标准的PostCSS配置方式
-- 必须配置autoprefixer以确保浏览器兼容性
-
-### 2. UI组件库
-
-#### Element Plus (主要UI库)
-```json
-{
-  "element-plus": "^2.10.0",
-  "@element-plus/icons-vue": "^2.3.0"
-}
-```
-
-**安装命令**:
-```bash
-npm install element-plus @element-plus/icons-vue
-```
-
-**自动导入支持**:
-```json
-{
-  "unplugin-vue-components": "^0.26.0",
-  "unplugin-auto-import": "^0.17.0"
-}
-```
-
-#### Shadcn UI风格组件 (补充)
-- 采用Shadcn UI的设计理念和组件模式
-- 使用TailwindCSS构建自定义组件
-- 遵循无头组件(Headless Components)设计原则
-
-### 3. 图标库
-
-#### HeroIcons (主要图标库)
-```json
-{
-  "@heroicons/vue": "^2.0.0"
-}
-```
-
-**安装命令**:
-```bash
-npm install @heroicons/vue
-```
-
-**使用规范**:
-- 优先使用HeroIcons
-- Element Plus图标作为补充
-- 保持图标风格统一
-
-### 4. 字体系统
-
-#### 推荐字体配置
-```css
-/* 主字体栈 */
-font-family: 
-  'Inter', 
-  'SF Pro Display', 
-  '-apple-system', 
-  'BlinkMacSystemFont', 
-  '苹方-简', 
-  'PingFang SC', 
-  'Microsoft YaHei', 
-  sans-serif;
-
-/* 代码字体 */
-font-family: 
-  'JetBrains Mono', 
-  'Fira Code', 
-  'SF Mono', 
-  'Monaco', 
-  'Consolas', 
-  monospace;
-```
-
-**字体CDN引入**:
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-```
-
-## 完整依赖库清单
-
-### 生产依赖 (dependencies)
 ```json
 {
   "vue": "^3.4.0",
-  "element-plus": "^2.10.0",
-  "@element-plus/icons-vue": "^2.3.0",
-  "@heroicons/vue": "^2.0.0",
+  "typescript": "^5.3.0",
+  "vue-tsc": "^3.0.6",
+  "vite": "^5.0.0",
   "vue-router": "^4.2.0",
   "pinia": "^2.1.0",
-  "@vueuse/core": "^10.7.0"
-}
-```
-
-### 开发依赖 (devDependencies)
-```json
-{
-  "@vitejs/plugin-vue": "^5.0.0",
-  "vite": "^5.0.0",
-  "typescript": "^5.3.0",
+  "element-plus": "^2.10.0",
+  "@element-plus/icons-vue": "^2.3.0",
   "tailwindcss": "^3.4.0",
-  "@tailwindcss/vite": "^4.0.0",
-  "unplugin-vue-components": "^0.26.0",
+  "autoprefixer": "^10.4.0",
+  "postcss": "^8.4.0",
+  "@heroicons/vue": "^2.0.0",
+  "@vueuse/core": "^10.7.0",
   "unplugin-auto-import": "^0.17.0",
-  "@types/node": "^20.0.0",
-  "vue-tsc": "^1.8.0"
+  "unplugin-vue-components": "^0.26.0"
 }
 ```
 
-## 开发原则与规范
+### 禁用依赖 ❌
 
-### 1. 核心开发原则
+- `@tailwindcss/vite` - 使用标准PostCSS配置
+- Vue 2.x相关包 - 项目必须基于Vue 3
+- 旧版本vue-tsc (< 3.0) - 会导致构建错误
 
-#### 🚫 禁止原生开发规则
-```
-❌ 严禁使用原生HTML、CSS、JavaScript开发布局、样式、交互、组件
-✅ 必须使用指定的框架和工具库：
-   - Vue.js 3 + Composition API
-   - TailwindCSS (样式)
-   - Element Plus (UI组件)
-   - TypeScript (类型安全)
-```
+---
 
-#### 🎨 样式开发规范
-```
-✅ 必须使用：TailwindCSS实用类
-✅ 允许使用：CSS模块化 (仅在必要时)
-❌ 禁止使用：全局CSS、内联样式、原生CSS选择器
-❌ 禁止使用：indigo、blue颜色 (除非用户特别指定)
-```
+## 🏗️ 项目结构规范
 
-#### 🧩 组件开发规范
-```
-✅ 必须使用：Element Plus基础组件
-✅ 必须考虑：组件复用性、样式一致性
-✅ 必须遵循：统一的设计系统和风格
-✅ 必须使用：TypeScript类型定义
-```
-
-### 2. 颜色系统规范
-
-#### 禁用颜色
-- **🚫 Indigo/靛蓝色系**: `indigo-*`, `blue-*`
-- **例外**: 用户明确要求使用时
-
-#### 推荐颜色
-```css
-/* 主色调 - 参考Shadcn UI */
---primary: 220 14% 96%;
---secondary: 215 28% 17%;
---accent: 142 76% 36%;
---destructive: 0 84% 60%;
-
-/* 中性色 */
---gray: 215 16% 47%;
---slate: 215 28% 17%;
---zinc: 240 10% 4%;
-
-/* 语义色 */
---success: 142 76% 36%;
---warning: 38 92% 50%;
---error: 0 84% 60%;
---info: 199 89% 48%;
-```
-
-### 3. 响应式设计规范
-
-#### 断点定义 (TailwindCSS标准)
-```css
-/* sm: 640px */
-/* md: 768px */
-/* lg: 1024px */
-/* xl: 1280px */
-/* 2xl: 1536px */
-```
-
-#### 移动优先原则
-```css
-/* ✅ 正确：移动优先 */
-.container {
-  @apply w-full px-4;
-  @apply md:px-6 lg:px-8;
-  @apply md:max-w-3xl lg:max-w-5xl xl:max-w-7xl;
-}
-
-/* ❌ 错误：桌面优先 */
-.container {
-  @apply max-w-7xl px-8;
-  @apply md:max-w-5xl md:px-6;
-  @apply sm:w-full sm:px-4;
-}
-```
-
-### 4. 组件架构规范
-
-#### 组件分层
-```
-🏗️ Layout组件      - 页面布局结构
-🧩 Feature组件     - 业务功能组件  
-🔧 UI组件         - 通用界面组件
-🎯 Base组件       - 基础原子组件
-```
-
-#### 组件命名规范
-```typescript
-// ✅ 正确命名
-export default defineComponent({
-  name: 'UserProfileCard',     // PascalCase, 描述性
-  components: {
-    ElCard,                    // Element Plus组件
-    UserAvatar,                // 自定义组件
-  }
-})
-
-// ❌ 错误命名
-export default defineComponent({
-  name: 'card',               // 不够描述性
-  name: 'user_profile',       // 使用下划线
-})
-```
-
-#### Props定义规范
-```typescript
-// ✅ 推荐：使用TypeScript接口
-interface UserProfileProps {
-  user: User
-  showActions?: boolean
-  size?: 'small' | 'medium' | 'large'
-}
-
-const props = defineProps<UserProfileProps>()
-
-// ✅ 备选：运行时声明
-const props = defineProps({
-  user: {
-    type: Object as PropType<User>,
-    required: true
-  },
-  showActions: {
-    type: Boolean,
-    default: false
-  }
-})
-```
-
-### 5. 状态管理规范
-
-#### Pinia Store结构
-```typescript
-// stores/user.ts
-import { defineStore } from 'pinia'
-
-export const useUserStore = defineStore('user', () => {
-  // State
-  const user = ref<User | null>(null)
-  const isLoading = ref(false)
-  
-  // Getters
-  const isAuthenticated = computed(() => !!user.value)
-  const fullName = computed(() => 
-    user.value ? `${user.value.firstName} ${user.value.lastName}` : ''
-  )
-  
-  // Actions
-  async function login(credentials: LoginCredentials) {
-    isLoading.value = true
-    try {
-      user.value = await authApi.login(credentials)
-    } finally {
-      isLoading.value = false
-    }
-  }
-  
-  return {
-    // State
-    user: readonly(user),
-    isLoading: readonly(isLoading),
-    // Getters
-    isAuthenticated,
-    fullName,
-    // Actions
-    login
-  }
-})
-```
-
-### 6. 项目结构规范
-
-#### 推荐目录结构
 ```
 src/
-├── components/          # 可复用组件
-│   ├── ui/             # 基础UI组件
-│   ├── layout/         # 布局组件
-│   └── feature/        # 功能组件
-├── views/              # 页面组件
+├── components/
+│   ├── ui/              # 可复用UI组件
+│   └── layout/          # 布局组件
+├── views/               # 页面组件
+│   ├── auth/           # 认证相关
+│   └── error/          # 错误页面
 ├── stores/             # Pinia状态管理
-├── composables/        # 组合式函数
-├── utils/              # 工具函数
+├── router/             # 路由配置
 ├── types/              # TypeScript类型定义
+├── utils/              # 工具函数
 ├── assets/             # 静态资源
-│   ├── images/
-│   ├── fonts/
-│   └── styles/
-├── plugins/            # 插件配置
-└── router/             # 路由配置
+├── style.css           # 全局样式
+├── App.vue             # 根组件
+└── main.ts             # 入口文件
 ```
 
-### 7. 代码质量规范
+---
 
-#### ESLint配置
-```json
-{
-  "extends": [
-    "@vue/typescript/recommended",
-    "@vue/prettier",
-    "@vue/eslint-config-typescript"
-  ],
-  "rules": {
-    "vue/multi-word-component-names": "error",
-    "vue/component-definition-name-casing": ["error", "PascalCase"],
-    "vue/component-name-in-template-casing": ["error", "PascalCase"],
-    "@typescript-eslint/no-unused-vars": "error"
-  }
-}
-```
+## 💻 核心配置文件
 
-#### Prettier配置
-```json
-{
-  "semi": false,
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "printWidth": 80,
-  "vueIndentScriptAndStyle": true
-}
-```
+### 1. vite.config.ts (标准配置)
 
-### 8. 性能优化规范
-
-#### 组件懒加载
-```typescript
-// ✅ 路由级懒加载
-const routes = [
-  {
-    path: '/dashboard',
-    component: () => import('@/views/Dashboard.vue')
-  }
-]
-
-// ✅ 组件级懒加载
-const HeavyComponent = defineAsyncComponent(() => 
-  import('@/components/HeavyComponent.vue')
-)
-```
-
-#### 图片优化
-```vue
-<template>
-  <!-- ✅ 响应式图片 -->
-  <img 
-    :src="imageUrl"
-    :srcset="`${imageUrl}?w=400 400w, ${imageUrl}?w=800 800w`"
-    sizes="(max-width: 640px) 400px, 800px"
-    :alt="imageAlt"
-    loading="lazy"
-    class="w-full h-auto"
-  />
-  
-  <!-- ✅ Element Plus图片组件 -->
-  <el-image 
-    :src="imageUrl"
-    :lazy="true"
-    fit="cover"
-    class="w-full h-48"
-  >
-    <template #placeholder>
-      <div class="flex items-center justify-center w-full h-full bg-gray-100">
-        <el-icon class="text-gray-400"><Picture /></el-icon>
-      </div>
-    </template>
-  </el-image>
-</template>
-```
-
-## 配置文件示例
-
-### Vite配置 (vite.config.ts)
 ```typescript
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -445,29 +84,32 @@ export default defineConfig({
     AutoImport({
       resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router', 'pinia'],
-      dts: true,
+      dts: true
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
-      dts: true,
-    }),
+      resolvers: [ElementPlusResolver()]
+    })
   ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src')
     }
   },
-  css: {
-    preprocessorOptions: {
-      scss: { 
-        api: 'modern-compiler' 
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'element-plus': ['element-plus'],
+          'vue-vendor': ['vue', 'vue-router', 'pinia']
+        }
       }
     }
   }
 })
 ```
 
-### PostCSS配置 (postcss.config.js)
+### 2. postcss.config.js (TailwindCSS配置)
+
 ```javascript
 export default {
   plugins: {
@@ -477,9 +119,9 @@ export default {
 }
 ```
 
-### TailwindCSS配置 (tailwind.config.js)
+### 3. tailwind.config.js (优化配置)
+
 ```javascript
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./index.html",
@@ -489,25 +131,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // 移除indigo和blue，使用自定义颜色
         primary: {
-          50: '#f0f9ff',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          900: '#1e3a8a',
-        },
-        secondary: {
-          50: '#f8fafc',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          900: '#0f172a',
+          50: '#fef7ed',
+          100: '#fdedd3',
+          200: '#fbd9a5',
+          300: '#f8c06d',
+          400: '#f59e0b',
+          500: '#ea580c',
+          600: '#dc2626',
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
         }
-      },
-      fontFamily: {
-        sans: ['Inter', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'SF Mono', 'Monaco', 'Consolas', 'monospace'],
       }
     },
   },
@@ -515,71 +150,435 @@ module.exports = {
 }
 ```
 
-### TypeScript配置 (tsconfig.json)
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+---
+
+## 🛡️ TypeScript类型安全规范
+
+### 强制类型定义规范
+
+#### ✅ 正确的数据结构
+
+```typescript
+// src/types/index.ts
+export interface CardItem {
+  id: string                    // ⚠️ 必须使用string，不能用number
+  title: string
+  description: string
+  image: string
+  category: string
+  tags: string[]
+  createTime: string            // ⚠️ 统一字段名，不用createdAt
+  author: {                     // ⚠️ 必须使用对象结构
+    name: string
+    avatar: string
+  }
+  stats: {                      // ⚠️ 统计数据分组
+    views: number
+    likes: number
+    comments: number
+  }
 }
 ```
 
-## 质量检查清单
+#### ❌ 常见错误避免
 
-### 项目启动前检查
-- [ ] 所有依赖库版本符合要求
-- [ ] TailwindCSS配置正确
-- [ ] Element Plus自动导入配置完成
-- [ ] TypeScript配置无错误
-- [ ] ESLint和Prettier配置生效
+```typescript
+// 错误1: ID类型不一致
+const card = { id: 1 }  // number
+const find = cards.find(c => c.id === '1')  // string比较 ❌
 
-### 代码提交前检查
-- [ ] 无TypeScript类型错误
-- [ ] 无ESLint警告或错误
-- [ ] 代码格式化符合Prettier规范
-- [ ] 组件命名符合规范
-- [ ] 禁用颜色未被使用
-- [ ] 响应式设计测试通过
+// 错误2: 字段结构不匹配
+const card = {
+  author: 'John',    // 字符串 ❌
+  likes: 100         // 直接在根级别 ❌
+}
 
-### 组件开发检查
-- [ ] 使用Element Plus基础组件
-- [ ] TailwindCSS样式正确应用
-- [ ] 组件具备复用性
-- [ ] Props类型定义完整
-- [ ] 事件处理符合Vue 3规范
+// 正确做法 ✅
+const card: CardItem = {
+  id: '1',           // string
+  author: {          // 对象结构
+    name: 'John',
+    avatar: '/avatar.jpg'
+  },
+  stats: {           // 分组统计
+    likes: 100,
+    views: 500,
+    comments: 25
+  }
+}
+```
 
-## 更新与维护
+### TypeScript配置要求
 
-### 版本更新策略
-- **主要版本**: 每季度评估更新
-- **次要版本**: 每月评估安全更新
-- **补丁版本**: 及时应用安全修复
+```json
+// tsconfig.json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
+```
 
-### 监控与优化
-- 定期检查依赖库更新
-- 监控包大小和性能指标
-- 收集团队反馈优化规范
+---
+
+## 🎨 Vue组件开发规范
+
+### 组件模板结构
+
+```vue
+<template>
+  <!-- 使用语义化HTML -->
+  <article class="card">
+    <!-- 条件渲染优先v-if -->
+    <div v-if="loading">加载中...</div>
+    
+    <!-- 列表必须有唯一key -->
+    <div 
+      v-for="item in items" 
+      :key="item.id"
+      @click="handleClick(item)"
+    >
+      {{ item.title }}
+    </div>
+  </article>
+</template>
+
+<script setup lang="ts">
+// 1. 导入顺序：Vue -> 第三方 -> 本地
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import type { CardItem } from '@/types'
+
+// 2. 类型定义
+interface Props {
+  items: CardItem[]
+  loading?: boolean
+}
+
+// 3. Props定义
+const props = withDefaults(defineProps<Props>(), {
+  loading: false
+})
+
+// 4. 响应式状态
+const selectedItem = ref<CardItem | null>(null)
+
+// 5. 计算属性
+const displayItems = computed(() => 
+  props.items.filter(item => item.stats.views > 100)
+)
+
+// 6. 方法
+const handleClick = (item: CardItem) => {
+  selectedItem.value = item
+}
+
+// 7. 生命周期
+onMounted(() => {
+  // 初始化逻辑
+})
+</script>
+
+<style scoped>
+/* 优先使用TailwindCSS */
+.card {
+  @apply bg-white rounded-lg shadow-sm;
+}
+</style>
+```
+
+---
+
+## 🚨 构建问题解决指南
+
+### 常见构建错误及解决方案
+
+#### 1. vue-tsc版本问题
+
+```bash
+# 错误: Search string not found supportedTSExtensions
+# 解决: 升级vue-tsc版本
+npm install vue-tsc@^3.0.6 -D
+```
+
+#### 2. TailwindCSS配置错误
+
+```bash
+# 错误: Cannot apply unknown utility class
+# 原因: 使用了实验性@tailwindcss/vite插件
+# 解决: 使用标准PostCSS配置
+
+# 移除错误的依赖
+npm uninstall @tailwindcss/vite
+
+# 安装正确的依赖
+npm install autoprefixer postcss
+```
+
+#### 3. TypeScript类型错误
+
+```typescript
+// 错误: Property 'likes' does not exist
+card.likes  // ❌
+
+// 解决: 使用正确的访问路径
+card.stats.likes  // ✅
+
+// 错误: Type 'number' is not assignable to type 'string'
+{ id: 1 }  // ❌
+
+// 解决: 使用正确的类型
+{ id: '1' }  // ✅
+```
+
+---
+
+## ⚡ 性能优化最佳实践
+
+### 1. 组件懒加载
+
+```typescript
+// 路由懒加载
+const routes = [
+  {
+    path: '/dashboard',
+    component: () => import('@/views/DashboardView.vue')
+  }
+]
+
+// 组件懒加载
+const HeavyComponent = defineAsyncComponent(
+  () => import('@/components/HeavyComponent.vue')
+)
+```
+
+### 2. 图片优化
+
+```vue
+<template>
+  <img 
+    :src="card.image" 
+    :alt="card.title"
+    loading="lazy"
+    class="w-full h-64 object-cover"
+  />
+</template>
+```
+
+### 3. 防抖节流
+
+```typescript
+import { debounce } from '@vueuse/core'
+
+const searchQuery = ref('')
+const debouncedSearch = debounce(async (query: string) => {
+  if (query.trim()) {
+    await searchCards(query)
+  }
+}, 300)
+
+watch(searchQuery, debouncedSearch)
+```
+
+---
+
+## 🔧 状态管理规范
+
+### Pinia Store最佳实践
+
+```typescript
+// stores/cards.ts
+import { defineStore } from 'pinia'
+import type { CardItem } from '@/types'
+
+export const useCardsStore = defineStore('cards', () => {
+  // State
+  const cards = ref<CardItem[]>([])
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+
+  // Getters
+  const featuredCards = computed(() => 
+    cards.value.filter(card => card.stats.likes > 100)
+  )
+
+  // Actions
+  const fetchCards = async () => {
+    loading.value = true
+    try {
+      const response = await api.getCards()
+      cards.value = response.data
+    } catch (err) {
+      error.value = err instanceof Error ? err.message : 'Unknown error'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    // 只读状态
+    cards: readonly(cards),
+    loading: readonly(loading),
+    error: readonly(error),
+    // Getters
+    featuredCards,
+    // Actions
+    fetchCards
+  }
+})
+```
+
+---
+
+## 📚 代码示例模板
+
+### 标准页面组件
+
+```vue
+<template>
+  <div class="min-h-screen bg-gradient-to-br from-orange-50 to-amber-50">
+    <!-- 加载状态 -->
+    <div v-if="loading" class="flex justify-center py-12">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+    </div>
+
+    <!-- 错误状态 -->
+    <div v-else-if="error" class="text-center py-12">
+      <p class="text-red-600">{{ error }}</p>
+      <button @click="retry" class="mt-4 px-4 py-2 bg-orange-500 text-white rounded-lg">
+        重试
+      </button>
+    </div>
+
+    <!-- 内容区域 -->
+    <div v-else>
+      <!-- 页面内容 -->
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
+const loading = ref(false)
+const error = ref<string | null>(null)
+
+const fetchData = async () => {
+  loading.value = true
+  error.value = null
+  try {
+    // API调用
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : '加载失败'
+  } finally {
+    loading.value = false
+  }
+}
+
+const retry = () => fetchData()
+
+onMounted(() => {
+  fetchData()
+})
+</script>
+```
+
+---
+
+## 📋 检查清单
+
+### 开发前检查
+
+- [ ] ✅ 使用正确的依赖版本
+- [ ] ✅ 配置PostCSS而非@tailwindcss/vite
+- [ ] ✅ 设置TypeScript严格模式
+- [ ] ✅ 配置自动导入插件
+
+### 开发中检查
+
+- [ ] ✅ 所有ID使用string类型
+- [ ] ✅ 数据结构匹配类型定义
+- [ ] ✅ 移除未使用的导入和变量
+- [ ] ✅ 正确的错误处理
+
+### 构建前检查
+
+- [ ] ✅ `npm run build` 无错误
+- [ ] ✅ TypeScript类型检查通过
+- [ ] ✅ 无控制台警告
+- [ ] ✅ 性能优化实施
+
+---
+
+## 🚀 Git工作流规范
+
+### 提交信息规范
+
+```bash
+# 功能开发
+git commit -m "feat: 添加用户认证功能"
+
+# 问题修复
+git commit -m "fix: 修复构建过程中TypeScript类型错误"
+
+# 代码重构
+git commit -m "refactor: 重构组件结构提升可维护性"
+
+# 性能优化
+git commit -m "perf: 优化图片加载性能"
+
+# 文档更新
+git commit -m "docs: 更新开发规范文档"
+```
+
+### 分支管理
+
+```bash
+# 主分支
+main              # 生产环境代码
+
+# 开发分支
+develop           # 开发环境代码
+
+# 功能分支
+feature/user-auth # 新功能开发
+hotfix/login-bug  # 紧急修复
+```
+
+---
+
+## 📖 学习资源
+
+### 官方文档
+- [Vue 3 官方文档](https://vuejs.org/)
+- [TypeScript 手册](https://www.typescriptlang.org/docs/)
+- [TailwindCSS 文档](https://tailwindcss.com/docs)
+- [Element Plus 文档](https://element-plus.org/)
+
+### 实用工具
+- [Vue DevTools](https://devtools.vuejs.org/)
+- [TypeScript Playground](https://www.typescriptlang.org/play)
+- [TailwindCSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+
+---
+
+**⚠️ 重要提醒**
+
+1. **版本兼容性**: 严格使用指定版本，避免兼容性问题
+2. **类型安全**: 所有数据结构必须匹配TypeScript接口定义
+3. **构建检查**: 每次提交前必须确保 `npm run build` 成功
+4. **代码规范**: 遵循统一的命名规范和代码结构
+5. **性能优化**: 实施懒加载、防抖等性能优化措施
 
 ---
 
 **注意**: 本配置为强制执行的Always规则，所有前端项目必须严格遵循。如需修改，请通过正式流程申请审批。
+
+---
+
+*最后更新: 2024年12月*  
+*版本: v2.0.0*  
+*基于实际项目问题总结优化*

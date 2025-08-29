@@ -50,7 +50,7 @@
       <!-- Modern Masonry Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          v-for="(card, index) in displayedCards"
+          v-for="card in displayedCards"
           :key="card.id"
           class="group cursor-pointer"
           @click="handleCardClick(card)"
@@ -89,15 +89,15 @@
               
               <!-- Modern Meta -->
               <div class="flex items-center justify-between text-xs text-gray-500">
-                <span class="font-light">{{ formatDate(card.createdAt) }}</span>
+                <span class="font-light">{{ formatDate(card.createTime) }}</span>
                 <div class="flex items-center space-x-4">
                   <span class="flex items-center space-x-1">
                     <HeartIcon class="h-4 w-4" />
-                    <span>{{ card.likes }}</span>
+                    <span>{{ card.stats.likes }}</span>
                   </span>
                   <span class="flex items-center space-x-1">
                     <EyeIcon class="h-4 w-4" />
-                    <span>{{ card.views }}</span>
+                    <span>{{ card.stats.views }}</span>
                   </span>
                 </div>
               </div>
@@ -148,148 +148,220 @@ const itemsPerPage = 6
 // Extended mock data with more Chinese content
 const allCards: CardItem[] = [
   {
-    id: 1,
+    id: '1',
     title: '极简建筑美学',
     description: '探索现代建筑中简洁线条与功能空间的完美融合，感受极简主义的永恒魅力。',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '建筑',
     tags: ['建筑', '极简', '设计'],
-    author: '陈建筑师',
-    createdAt: '2024-01-15',
-    likes: 234,
-    views: 1200
+    author: {
+      name: '陈建筑师',
+      avatar: '/avatars/architect.jpg'
+    },
+    createTime: '2024-01-15',
+    stats: {
+      likes: 234,
+      views: 1200,
+      comments: 45
+    }
   },
   {
-    id: 2,
+    id: '2',
     title: '数字艺术的复兴',
     description: '数字工具如何重塑艺术景观，为传统艺术创造全新的可能性和表达方式。',
     image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '艺术',
     tags: ['数字艺术', '科技', '创意'],
-    author: '玛雅·罗德里格斯',
-    createdAt: '2024-01-14',
-    likes: 189,
-    views: 856
+    author: {
+      name: '玛雅·罗德里格斯',
+      avatar: '/avatars/artist.jpg'
+    },
+    createTime: '2024-01-14',
+    stats: {
+      likes: 189,
+      views: 856,
+      comments: 23
+    }
   },
   {
-    id: 3,
+    id: '3',
     title: '可持续生活方式',
     description: '通过简单的步骤实现更可持续、更有意识的生活方式，与自然和谐共存。',
     image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '生活',
     tags: ['可持续', '生活方式', '环保'],
-    author: '乔丹·史密斯',
-    createdAt: '2024-01-13',
-    likes: 312,
-    views: 1456
+    author: {
+      name: '乔丹·史密斯',
+      avatar: '/avatars/lifestyle.jpg'
+    },
+    createTime: '2024-01-13',
+    stats: {
+      likes: 312,
+      views: 1456,
+      comments: 67
+    }
   },
   {
-    id: 4,
+    id: '4',
     title: '现代工作空间',
     description: '在数字时代创造高效且富有灵感的工作环境，提升创造力和工作效率。',
     image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '科技',
     tags: ['工作空间', '效率', '设计'],
-    author: '山姆·威尔逊',
-    createdAt: '2024-01-12',
-    likes: 156,
-    views: 743
+    author: {
+      name: '山姆·威尔逊',
+      avatar: '/avatars/tech.jpg'
+    },
+    createTime: '2024-01-12',
+    stats: {
+      likes: 156,
+      views: 743,
+      comments: 19
+    }
   },
   {
-    id: 5,
+    id: '5',
     title: '自然摄影之美',
     description: '捕捉自然风光中的原始美感和未被触及的瞬间，展现大自然的壮丽。',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '摄影',
     tags: ['自然', '摄影', '风景'],
-    author: '艾玛·戴维斯',
-    createdAt: '2024-01-11',
-    likes: 421,
-    views: 2103
+    author: {
+      name: '艾玛·戴维斯',
+      avatar: '/avatars/photographer.jpg'
+    },
+    createTime: '2024-01-11',
+    stats: {
+      likes: 421,
+      views: 2103,
+      comments: 89
+    }
   },
   {
-    id: 6,
+    id: '6',
     title: '烹饪创新艺术',
     description: '现代烹饪技术与传统美食的创意融合，探索味觉的无限可能。',
     image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '美食',
     tags: ['烹饪', '创新', '美食'],
-    author: '玛丽亚大厨',
-    createdAt: '2024-01-10',
-    likes: 278,
-    views: 934
+    author: {
+      name: '玛丽亚大厨',
+      avatar: '/avatars/chef.jpg'
+    },
+    createTime: '2024-01-10',
+    stats: {
+      likes: 278,
+      views: 934,
+      comments: 56
+    }
   },
   {
-    id: 7,
+    id: '7',
     title: '城市夜景摄影',
     description: '记录城市夜晚的霓虹光影，展现都市生活的另一面诗意与浪漫。',
     image: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '摄影',
     tags: ['城市', '夜景', '光影'],
-    author: '李摄影师',
-    createdAt: '2024-01-09',
-    likes: 567,
-    views: 2876
+    author: {
+      name: '李摄影师',
+      avatar: '/avatars/photographer2.jpg'
+    },
+    createTime: '2024-01-09',
+    stats: {
+      likes: 567,
+      views: 2876,
+      comments: 134
+    }
   },
   {
-    id: 8,
+    id: '8',
     title: '手工艺复兴',
     description: '在数字化时代重新发现手工艺的价值，感受匠人精神的传承与创新。',
     image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '手工艺',
     tags: ['手工', '传统', '工艺'],
-    author: '王师傅',
-    createdAt: '2024-01-08',
-    likes: 345,
-    views: 1567
+    author: {
+      name: '王师傅',
+      avatar: '/avatars/craftsman.jpg'
+    },
+    createTime: '2024-01-08',
+    stats: {
+      likes: 345,
+      views: 1567,
+      comments: 78
+    }
   },
   {
-    id: 9,
+    id: '9',
     title: '咖啡文化探索',
     description: '从豆子到杯子，探索咖啡背后的文化故事和制作工艺的精妙之处。',
     image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '生活',
     tags: ['咖啡', '文化', '品味'],
-    author: '张咖啡师',
-    createdAt: '2024-01-07',
-    likes: 423,
-    views: 1890
+    author: {
+      name: '张咖啡师',
+      avatar: '/avatars/barista.jpg'
+    },
+    createTime: '2024-01-07',
+    stats: {
+      likes: 423,
+      views: 1890,
+      comments: 92
+    }
   },
   {
-    id: 10,
+    id: '10',
     title: '现代室内设计',
     description: '简约而不简单的室内设计理念，创造舒适且富有美感的生活空间。',
     image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '设计',
     tags: ['室内', '设计', '现代'],
-    author: '刘设计师',
-    createdAt: '2024-01-06',
-    likes: 289,
-    views: 1234
+    author: {
+      name: '刘设计师',
+      avatar: '/avatars/designer.jpg'
+    },
+    createTime: '2024-01-06',
+    stats: {
+      likes: 289,
+      views: 1234,
+      comments: 45
+    }
   },
   {
-    id: 11,
+    id: '11',
     title: '植物摄影艺术',
     description: '通过镜头发现植物世界的微妙之美，记录生命的顽强与优雅。',
     image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '摄影',
     tags: ['植物', '自然', '微距'],
-    author: '林摄影师',
-    createdAt: '2024-01-05',
-    likes: 156,
-    views: 789
+    author: {
+      name: '林摄影师',
+      avatar: '/avatars/photographer3.jpg'
+    },
+    createTime: '2024-01-05',
+    stats: {
+      likes: 156,
+      views: 789,
+      comments: 28
+    }
   },
   {
-    id: 12,
+    id: '12',
     title: '数字艺术工作流',
     description: '分享数字艺术创作的完整流程，从概念到完成作品的每一个步骤。',
     image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     category: '艺术',
     tags: ['数字艺术', '工作流', '教程'],
-    author: '陈艺术家',
-    createdAt: '2024-01-04',
-    likes: 678,
-    views: 3456
+    author: {
+      name: '陈艺术家',
+      avatar: '/avatars/digital-artist.jpg'
+    },
+    createTime: '2024-01-04',
+    stats: {
+      likes: 678,
+      views: 3456,
+      comments: 156
+    }
   }
 ]
 
